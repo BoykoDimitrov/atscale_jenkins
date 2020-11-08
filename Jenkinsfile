@@ -5,6 +5,7 @@ properties([
 ])
 def branches = [:]
 def names = nodeNames()
+def repoURL = "https://github.com/OmkarPathak/Python-Programs.git"
 for (int i=0; i<names.size(); ++i) {
   def nodeName = names[i];
   branches["node_" + nodeName] = {
@@ -12,10 +13,9 @@ for (int i=0; i<names.size(); ++i) {
       try {
         stage('Checkout') {
           echo "Triggering on " + nodeName
-            sh script: """
-               cleanWs()
-               git clone https://github.com/OmkarPathak/Python-Programs.git
-             """
+          def res = sh(script: """
+            if cd Python-Programs; then git pull; else git clone https://github.com/OmkarPathak/Python-Programs.git; fi
+           """, returnStdout: true)
           }
         }
       catch (exc) {
