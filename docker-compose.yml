@@ -1,0 +1,31 @@
+version: "3"
+services:
+  master:
+    build: ./eea.docker.jenkins.master
+    ports:
+      - "8080:8080"
+    environment:
+      JENKINS_USER: "${JENKINS_USER}"
+      JENKINS_PASS: "${JENKINS_PASS}"
+      JAVA_OPTS: "-Djenkins.install.runSetupWizard=false"
+    volumes:
+      - jenkins-master:/var/jenkins_home
+
+  worker:
+    build: ./eea.docker.jenkins.slave
+    environment:
+      JAVA_OPTS: "-Xmx2048m"
+      JENKINS_MASTER: "http://master:8080"
+      JENKINS_NAME: "worker"
+      JENKINS_USER: "${JENKINS_USER}"
+      JENKINS_PASS: "${JENKINS_PASS}"
+      JENKINS_RETRY: "10"
+    volumes:
+      - jenkins-worker:/var/jenkins_home/worker
+    deploy:
+      mode: replicated
+      replicas: "${JENKINS_SLAVE_REPLICAS}"
+
+volumes:
+  jenkins-master:
+  jenkins-worker:
