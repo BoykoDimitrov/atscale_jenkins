@@ -33,6 +33,7 @@ if required, this is how it should be done with Jenkins native SSL:
 4. Create a Pipeline project 
  - Pipeline -> Pipeline Script from SCM -> Git
  - Enter https://github.com/BoykoDimitrov/atscale_jenkins.git as the source repository
+ - Enter */main as the branch specifier
  
 5. Go to http://localhost:8080/scriptApproval/ and these methods for approval:
 ``` 
