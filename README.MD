@@ -20,13 +20,13 @@ docker-compose up -d
 
 *** Since this is a local example, SSL certs and HTTPS has not been enabled,
 if required, this is how it should be done with Jenkins native SSL:
- - generate SSL and convert to JKS providing a domain to be certified
+ - generate SSL and convert to JKS providing a domain to be certified via keytool
  - map ports 8443:8443 in compose
  - setup SSL by adding the following properties to the JENKINS_OPTS env section in compose:
 
 ``` 
 --httpPort=-1
 --httpsPort=8443
---httpsKeyStore="%JENKINS_HOME%\jenkins.your.domain.jks"
+--httpsKeyStore="%JENKINS_HOME%\your-keystore.jks"
 --httpsKeyStorePassword="<cleartext-password-to-keystore>"
 ```
