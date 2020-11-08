@@ -31,6 +31,10 @@ RUN curl "https://bootstrap.pypa.io/get-pip.py" -o "/tmp/get-pip.py" \
  && pip install virtualenv \
  && rm /tmp/get-pip.py
 
+RUN apt-get update -y && \
+apt-get install python3-pip -y && \
+pip3 install requests lxml bs4
+
 # PhantomJS
 RUN wget --no-check-certificate https://bitbucket.org/ariya/phantomjs/downloads/$PHANTOMJS_VERSION.tar.bz2 \
  && echo "$MD5PHANTOMJS  ${PHANTOMJS_VERSION}.tar.bz2" | md5sum -c - \
